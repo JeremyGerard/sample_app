@@ -1,0 +1,22 @@
+doctype html 
+html lang="en"
+  head
+    title {@titre}
+    meta charset= "utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible" 
+    meta content="width=device-width, initial-scale=1" name="viewport" 
+    meta content="" name="Layout" 
+    meta content="" name="Gesandco" 
+    //link ref="icon" type="image/png" href=file_path("favicon.png")
+
+    //ressources
+    link href="../../assets/bootstrap.min.css" rel="stylesheet" 
+    link href="jumbotron.css" rel="stylesheet"
+    script src="../../assets/js/ie-emulation-modes-warning.js" 
+
+  body
+    == yield
+
+  /div id="footer"
+/   == render 'footer'
+ /     | Copyright &copy; #{@author}
