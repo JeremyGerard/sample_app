@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+	$company = "FindMyHome"
   def home
   	@title = "Accueil"
   end

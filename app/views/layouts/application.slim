@@ -10,13 +10,40 @@ html lang="en"
     //link ref="icon" type="image/png" href=file_path("favicon.png")
 
     //ressources
-    link href="../../assets/bootstrap.min.css" rel="stylesheet" 
-    link href="jumbotron.css" rel="stylesheet"
-    script src="../../assets/js/ie-emulation-modes-warning.js" 
+    link href="../../assets/bootstrap.min.css" rel="stylesheet"
+    link href="../../assets/jumbotron.css" rel="stylesheet"
+    link href="../../assets/carousel.css" rel="stylesheet"
+    link href="http://openlayers.org/en/v3.4.0/css/ol.css" rel="stylesheet" type="text/css"
+    script src="http://openlayers.org/en/v3.4.0/build/ol.js" type="text/javascript" 
+
+    //script src="../../assets/js/ie-emulation-modes-warning.js" 
 
   body
+    //nav bar
+    nav.navbar.navbar-inverse.navbar-embossed role="navigation"
+        .container
+            .navbar-header
+                button.navbar-toggle data-target="#navbar-collapse-01" data-toggle="collapse" type="button" 
+                    span.sr-only Toggle navigation
+                a.class.navbar-brand href='/' #{$company}
+                ul.nav.navbar-nav.navbar-left
+                  li.dropdown
+                    a.dropdown-toggle data-toggle="dropdown" href="#" 
+                      | Services
+                      b.caret
+                    span.dropdown-arrow
+                    ul.dropdown-menu
+                      li
+                        a href="#"  Les annonces
+                      li
+                        a href="#"  Recherche par adresses
+                      li
+                        a href="#"  Recherche par critères
+                      li.divider
+                      li
+                        a href="#"  Survole
+                  li
+                    a href='/about'  About
     == yield
-
-  /div id="footer"
-/   == render 'footer'
- /     | Copyright &copy; #{@author}
+    footer 
+    Copyright &copy; #{$company} 2015 JeremG

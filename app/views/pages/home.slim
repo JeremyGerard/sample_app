@@ -1,19 +1,38 @@
-nav.navbar.navbar-inverse.navbar-fixed-top
-  .container
-    .navbar-header
-      button.navbar-toggle.collapsed aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button" 
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.navbar-brand href="#"  Gesandco
 /! Main jumbotron for a primary marketing message or call to action
 .jumbotron
   .container
-    h1 Hello !
-    p Ceci est le premier site à vous proposer d'enrichir votre recherche immobilière en vous donnant de vrai renseignement sur l'environnement d'un bien !
+    /h1 Hello !
+    /p Ceci est le premier site à vous proposer d'enrichir votre recherche immobilière en vous donnant de vrai renseignement sur l'environnement d'un bien !
+    .carousel-example-generic.carousel.slide data-ride="carousel" 
+      ol.carousel-indicators
+        li.active data-slide-to="0" data-target="#carousel-example-generic" 
+      .carousel-inner role="listbox" 
+        .item.active
+          link href="http://openlayers.org/en/v3.4.0/css/ol.css" rel="stylesheet" type="text/css" /
+          css:
+            .map {
+               height: 400px;
+               width: 100%;
+             }
+            script src="http://openlayers.org/en/v3.4.0/build/ol.js" type="text/javascript" 
+            javascript:
+               var map = new ol.Map({
+                 target: 'map',
+                 layers: [
+                   new ol.layer.Tile({
+                     source: new ol.source.MapQuest({layer: 'sat'})
+                   })
+                 ],
+                 view: new ol.View({
+                   center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
+                   zoom: 4
+                 })
+               });
+        
+
 .container
   /! Example row of columns
+
   .row
     .col-md-4
       h2 Cadastre
@@ -22,13 +41,12 @@ nav.navbar.navbar-inverse.navbar-fixed-top
       h2 Maillage
       p
         | Dans quel type de quartier se situe mon bien ? Où est le métro, le bus, le relai velo le plus proche ? Quelle est la renommée et la distance des écoles autour de mon bien ? Puis-je me stationner facilement et a quel prix ?
-        | Vous trouverez toutes ces réponses et bien plus !
+        | Vous trouverez toutes ces réponses et bien plus ! 
     .col-md-4
       h2 Bien-être
       p Des renseignements sur la qualité de vie dans le quartier, les équipements sportif proche ainsi que les principaux parcours de courses a pieds ou de rendonnée. Egalement des informations sur la qualité de l'air, de l'eau ou bien la mesure des émissions d'ondes électromagnétiques
   hr/
-  footer
-    p &copy; Gesandco 2015
+
 /! /container
 /!
   | Bootstrap core JavaScript
@@ -37,4 +55,4 @@ nav.navbar.navbar-inverse.navbar-fixed-top
 script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" 
 script src="../../assets/bootstrap.min.js" 
 /! IE10 viewport hack for Surface/desktop Windows 8 bug
-script src="../../assets/js/ie10-viewport-bug-workaround.js" 
+//script src="../../assets/js/ie10-viewport-bug-workaround.js" 
