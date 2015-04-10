@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  get '/', :to => 'pages#home'
+
+  get '/', :to => 'pages#home2'
 
   get '/contact', :to => 'pages#contact'
 
   get '/about', :to => 'pages#about'
 
   get '/home2' , :to => 'pages#home2'
+
+  match '*path' => 'cors#preflight', :via => :options
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

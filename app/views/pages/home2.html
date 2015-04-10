@@ -8,6 +8,17 @@
             height: 400;
             width: 100%;
           }
+          .info {
+            width: 50%;
+            left: 0;
+            top: 0px;
+          }
+          .info1 {
+            width: 50%;
+            left:50%;
+            top: 0px;
+          }
+
         </style>
         <script src="http://openlayers.org/en/v3.4.0/build/ol.js" type="text/javascript"></script>
           <div id="map" class="map"></div>
@@ -28,44 +39,79 @@
                 })
               });
               //Ajout des différentes couches via le geoserver
-              var espVert = new ol.layer.Tile({ 
-                source: new ol.source.TileWMS({
+               
+              var agregaSource = new ol.source.TileWMS({
                   url: 'http://localhost:8080/geoserver/Rennes/wms',
-                  params: {LAYERS: 'Rennes:jardins_familiaux'},
+                  params: {LAYERS: 'Rennes:Carte Cadastre'},
                   serverType: 'geoserver',
                   crossOrigin: ''
-                }),
-                opacity: 0.5,
-
               });
-              map.addLayer(espVert);
 
-              //Fonction de récupération des infos des couches au click
+              var adrSource = new ol.source.TileWMS({
+                  url: 'http://localhost:8080/geoserver/Rennes/wms',
+                  params: {LAYERS: 'Rennes:rva_adresses'},
+                  serverType: 'geoserver',
+                  crossOrigin: ''
+              });
+
+              var batiSource = new ol.source.TileWMS({
+                  url: 'http://localhost:8080/geoserver/Rennes/wms',
+                  params: {LAYERS: 'Rennes:constructions_baties'},
+                  serverType: 'geoserver',
+                  crossOrigin: ''
+              });
+              
+              var agrega = new ol.layer.Tile({
+                source: agregaSource,
+                opacity: 0.5
+              });
+
+              var adr = new ol.layer.Tile({
+                source: adrSource,
+                opacity: 0.5
+              });
+
+              var bati = new ol.layer.Tile({
+                source: batiSource,
+                opacity: 0.1
+              });
+
+              map.addLayer(bati);
+              map.addLayer(adr);
+
               map.on('singleclick', function(evt) {
                 document.getElementById('info').innerHTML = '';
-                var viewResolution = /** @type {number} */ (view.getResolution());
-                var url = wmsSource.getGetFeatureInfoUrl(
-                    evt.coordinate, viewResolution, 'EPSG:3857',
-                    {'INFO_FORMAT': 'text/html'});
-                if (url) {
+                var viewResolution = map.getView().getResolution();
+                var url1 = adrSource.getGetFeatureInfoUrl(
+                    evt.coordinate, viewResolution,'EPSG:3857',
+                   {'INFO_FORMAT': 'text/html'});
+                var url2 = batiSource.getGetFeatureInfoUrl(
+                    evt.coordinate, viewResolution,'EPSG:3857',
+                   {'INFO_FORMAT': 'text/html'});
+                if (url1) {
                   document.getElementById('info').innerHTML =
-                      '<iframe seamless src="' + url + '"></iframe>';
+                      '<iframe seamless width= "100%" src="' + url1 + '"></iframe>';
                 }
+
+                if (url2) {
+                  document.getElementById('info1').innerHTML =
+                      '<iframe seamless width= "100%" src="' + url2 + '"></iframe>';
+                }
+
               });
 
-              map.on('pointermove', function(evt) {
-                if (evt.dragging) {
-                  return;
-                }
-                var pixel = map.getEventPixel(evt.originalEvent);
-                var hit = map.forEachLayerAtPixel(pixel, function(layer) {
-                  return true;
-                });
-                map.getTargetElement().style.cursor = hit ? 'pointer' : '';
-              });
-
+              
             </script>
+          
+          <div class="alert alert-success">
+            <div id="info">
+            </div>
+            <div id="info1">              
+            </div>
+            &nbsp;
           </div>
+        
+          
     </div>
 
     <div class="container">
@@ -100,4 +146,4 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="../../assets/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../../assets/ie10-viewport-bug-workaround.js"></script>
